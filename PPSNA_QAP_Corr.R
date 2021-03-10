@@ -1,44 +1,55 @@
 library(readxl)
+library(igraph)
 library(sna)
 
-f_lift <- read_excel("D:/development_TestCase/Product-Position-SNA_R/source/comment_robust_lift.xlsx")
-f_jacc <- read_excel("D:/development_TestCase/Product-Position-SNA_R/source/comment_robust_jaccard.xlsx")
-f_incu <- read_excel("D:/development_TestCase/Product-Position-SNA_R/source/comment_robust_incur.xlsx")
-f_cosi <- read_excel("D:/development_TestCase/Product-Position-SNA_R/source/comment_robust_cosine.xlsx")
+f_jacc <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_jaccard.xlsx")
+f_lift <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_lift.xlsx")
+f_incu <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_incur.xlsx")
+f_cosi <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_cosine.xlsx")
 
 rn1 <- as.matrix(f_jacc[,1])
-f_jacc <- f_jacc[2:6]
+f_jacc <- f_jacc[2:8]
 row.names(f_jacc) <- rn1
 
 rn2 <- as.matrix(f_lift[,1])
-f_lift <- f_lift[2:6]
+f_lift <- f_lift[2:8]
 row.names(f_lift) <- rn2
 
 rn3 <- as.matrix(f_incu[,1])
-f_incu <- f_incu[2:6]
+f_incu <- f_incu[2:8]
 row.names(f_incu) <- rn3
 
 rn4 <- as.matrix(f_cosi[,1])
-f_cosi <- f_cosi[2:6]
+f_cosi <- f_cosi[2:8]
 row.names(f_cosi) <- rn4
 
-g <- list(f_lift,f_jacc,f_incu,f_cosi)
+adjm1 <- as.matrix(f_jacc)
+adjm2 <- as.matrix(f_lift)
+adjm3 <- as.matrix(f_incu)
+adjm4 <- as.matrix(f_cosi)
+
+g <- list(adjm1,adjm2,adjm3,adjm4)
 
 #Perform qap tests of graph correlation
 q.12<-qaptest(g,gcor,g1=1,g2=2)
-summary(q.12)
-
 q.13<-qaptest(g,gcor,g1=1,g2=3)
-summary(q.13)
-
 q.14<-qaptest(g,gcor,g1=1,g2=4)
-summary(q.14)
-
 q.23<-qaptest(g,gcor,g1=2,g2=3)
-summary(q.23)
-
 q.24<-qaptest(g,gcor,g1=2,g2=4)
-summary(q.24)
-
 q.34<-qaptest(g,gcor,g1=3,g2=4)
-summary(q.34)
+
+summary(q.12) # Jacc vs Lift
+summary(q.13) # Jacc vs Incursion
+summary(q.14) # Jacc vs Cosine
+summary(q.23) # Lift vs Incursion
+summary(q.24) # Lift vs Cosine
+summary(q.34) # Incursion vs Cosine
+
+
+# Second Methods to test
+gcor(adjm1,adjm2) # Jacc vs Lift
+gcor(adjm1,adjm3) # Jacc vs Incursion
+gcor(adjm1,adjm4) # Jacc vs Cosine
+gcor(adjm2,adjm3) # Lift vs Incursion
+gcor(adjm2,adjm4) # Lift vs Cosine
+gcor(adjm3,adjm4) # Incursion vs Cosine
