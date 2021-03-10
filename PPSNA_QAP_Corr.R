@@ -30,3 +30,15 @@ summary(q.12)
 
 q.13<-qaptest(g,gcor,g1=1,g2=3)
 summary(q.13)
+
+q.14<-qaptest(g,gcor,g1=1,g2=4)
+summary(q.14)
+
+q.23<-qaptest(g,gcor,g1=2,g2=3)
+summary(q.23)
+
+q.24<-qaptest(g,gcor,g1=2,g2=4)
+summary(q.24)
+
+q.34<-qaptest(g,gcor,g1=3,g2=4)
+summary(q.34)
