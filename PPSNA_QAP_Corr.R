@@ -23,20 +23,27 @@ rn4 <- as.matrix(f_cosi[,1])
 f_cosi <- f_cosi[2:8]
 row.names(f_cosi) <- rn4
 
-adjm1 <- as.matrix(f_jacc)
-adjm2 <- as.matrix(f_lift)
-adjm3 <- as.matrix(f_incu)
-adjm4 <- as.matrix(f_cosi)
+adjm_jacc <- as.matrix(f_jacc)
+adjm_lift <- as.matrix(f_lift)
+adjm_incu <- as.matrix(f_incu)
+adjm_cosi <- as.matrix(f_cosi)
 
-g <- list(adjm1,adjm2,adjm3,adjm4)
+#g <- array(dim=c(4,7,7))
+#g[1,,] <- adjm_jacc
+#g[2,,] <- adjm_lift
+#g[3,,] <- adjm_incu
+#g[4,,] <- adjm_cosi
+
+
+g <- list(adjm_jacc,adjm_lift,adjm_incu,adjm_cosi)
 
 #Perform qap tests of graph correlation
-q.12<-qaptest(g,gcor,g1=1,g2=2)
-q.13<-qaptest(g,gcor,g1=1,g2=3)
-q.14<-qaptest(g,gcor,g1=1,g2=4)
-q.23<-qaptest(g,gcor,g1=2,g2=3)
-q.24<-qaptest(g,gcor,g1=2,g2=4)
-q.34<-qaptest(g,gcor,g1=3,g2=4)
+q.12<-qaptest(g,gcor,g1=1,g2=2, reps=1000)
+q.13<-qaptest(g,gcor,g1=1,g2=3, reps=1000)
+q.14<-qaptest(g,gcor,g1=1,g2=4, reps=1000)
+q.23<-qaptest(g,gcor,g1=2,g2=3, reps=1000)
+q.24<-qaptest(g,gcor,g1=2,g2=4, reps=1000)
+q.34<-qaptest(g,gcor,g1=3,g2=4, reps=1000)
 
 summary(q.12) # Jacc vs Lift
 summary(q.13) # Jacc vs Incursion
@@ -47,9 +54,10 @@ summary(q.34) # Incursion vs Cosine
 
 
 # Second Methods to test
-gcor(adjm1,adjm2) # Jacc vs Lift
-gcor(adjm1,adjm3) # Jacc vs Incursion
-gcor(adjm1,adjm4) # Jacc vs Cosine
-gcor(adjm2,adjm3) # Lift vs Incursion
-gcor(adjm2,adjm4) # Lift vs Cosine
-gcor(adjm3,adjm4) # Incursion vs Cosine
+gcor(adjm_jacc,adjm_lift) # Jacc vs Lift
+gcor(adjm_jacc,adjm_incu) # Jacc vs Incursion
+gcor(adjm_jacc,adjm_cosi) # Jacc vs Cosine
+gcor(adjm_lift,adjm_incu) # Lift vs Incursion
+gcor(adjm_lift,adjm_cosi) # Lift vs Cosine
+gcor(adjm_incu,adjm_cosi) # Incursion vs Cosine
+
