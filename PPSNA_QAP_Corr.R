@@ -2,10 +2,10 @@ library(readxl)
 library(igraph)
 library(sna)
 
-f_jacc <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_jaccard.xlsx")
-f_lift <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_lift.xlsx")
-f_incu <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_incur.xlsx")
-f_cosi <- read_excel("D:/development_TestCase/QAP_Test_PPSNA_R/source/comment_robust_cosine.xlsx")
+f_jacc <- read_excel("./source/comment_robust_jaccard.xlsx")
+f_lift <- read_excel("./source/comment_robust_lift.xlsx")
+f_incu <- read_excel("./source/comment_robust_incur.xlsx")
+f_cosi <- read_excel("./source/comment_robust_cosine.xlsx")
 
 rn1 <- as.matrix(f_jacc[,1])
 f_jacc <- f_jacc[2:8]
@@ -52,6 +52,7 @@ summary(q.23) # Lift vs Incursion
 summary(q.24) # Lift vs Cosine
 summary(q.34) # Incursion vs Cosine
 
+#plot(q.34)
 
 # Second Methods to test
 gcor(adjm_jacc,adjm_lift) # Jacc vs Lift

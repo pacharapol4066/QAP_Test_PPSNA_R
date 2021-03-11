@@ -1,0 +1,24 @@
+{
+    "id": "8AF9E69B",
+    "path": "D:/development_TestCase/QAP_Test_PPSNA_R/PPSNA_VOS_Graph.r",
+    "project_path": "PPSNA_VOS_Graph.r",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1615444997917.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "30,0",
+        "scrollLine": "19"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1615452357,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1615452907491,
+    "read_only": false,
+    "read_only_alternatives": []
+}

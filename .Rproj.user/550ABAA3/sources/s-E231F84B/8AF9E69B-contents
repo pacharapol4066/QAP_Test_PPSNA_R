@@ -26,7 +26,7 @@ G <- graph_from_adjacency_matrix(adjmt, weighted=TRUE, mode="upper")
 #plot(G,vertex.size=total_occurrences*0.005,layout=layout_with_kk)
 
 #V(G)$color <- "orange"
-#tkplot(G, size=total_occurrences*0.005, canvas.width = 550, canvas.height = 450)
+tkplot(G, size=total_occurrences*0.005, canvas.width = 550, canvas.height = 450)
 
 #lc <- cluster_louvain(G)
 #membership(lc)
