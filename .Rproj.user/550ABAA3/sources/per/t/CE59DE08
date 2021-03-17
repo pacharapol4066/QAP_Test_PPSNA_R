@@ -1,0 +1,24 @@
+{
+    "id": "CE59DE08",
+    "path": "D:/development_TestCase/QAP_Test_PPSNA_R/PPSNA_QAP_Corr.R",
+    "project_path": "PPSNA_QAP_Corr.R",
+    "type": "r_source",
+    "hash": "2009266984",
+    "contents": "",
+    "dirty": false,
+    "created": 1615986078774.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "103,0",
+        "scrollLine": "87"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1615975829,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1615975829,
+    "read_only": false,
+    "read_only_alternatives": []
+}
