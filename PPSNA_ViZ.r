@@ -9,28 +9,30 @@ library(quanteda)
 library(igraph)
 library(bibliometrix)
 library(CINNA)
+library(leiden)
+library(RColorBrewer)
 
+comment_nlp <- read_excel("./source/comment_cooc_jacc.xlsx")
 
-#comment_nlp_meiji <- read_excel("D:/development_TestCase/Master_PJ_DRMABS/Datasource/matrix_meiji_r.xlsx")
-comment_nlp_meiji <- read_excel("D:/development_TestCase/Product-Position-SNA/Datasource/comment_cooc_freq.xlsx")
-row_names <- as.matrix(comment_nlp_meiji[,1])
-comment_nlp_meiji <- comment_nlp_meiji[2:171]
-row.names(comment_nlp_meiji) <- row_names
-adjmt <- as.matrix(comment_nlp_meiji)
+rn1 <- as.matrix(comment_nlp[,1])
+comment_nlp <- comment_nlp[2:497]
+row.names(comment_nlp) <- rn1
+
+adjmt <- as.matrix(comment_nlp)
 
 total_occurrences <- colSums(adjmt)
-G <- graph_from_adjacency_matrix(adjmt, weighted=TRUE, mode="upper")
-par(mar=c(1,1,1,1))
-plot(G,vertex.size=total_occurrences*0.1,layout=layout_with_kk)
+G <- graph_from_adjacency_matrix(adjmt, weighted=TRUE, mode="undirected")
 
-V(G)$color <- "orange"
-tkplot(G, canvas.width = 550, canvas.height = 450)
+#V(G)$color <- "orange"
+#tkplot(G, size=total_occurrences, canvas.width = 550, canvas.height = 450)
 
 #lc <- cluster_louvain(G)
 #membership(lc)
 #communities(lc)
 
-par(mar=c(1,1,1,1))
-net <- networkPlot(adjmt , cluster = "louvain", n = vcount(G), type = "mds")
-net2VOSviewer(net)
+ldp <- leiden(G)
+table(ldp)
+node.cols <- brewer.pal(max(c(3, ldp)),"Pastel1")[ldp]
+plot(G,layout=layout_with_kk, vertex.color = node.cols)
+
 
