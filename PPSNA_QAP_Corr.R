@@ -6,6 +6,7 @@ f_jacc <- read_excel("./source/comment_robust_jaccard.xlsx")
 f_lift <- read_excel("./source/comment_robust_lift.xlsx")
 f_incu <- read_excel("./source/comment_robust_incur.xlsx")
 f_cosi <- read_excel("./source/comment_robust_cosine.xlsx")
+f_assoc <- read_excel("./source/comment_robust_assoc.xlsx")
 f_ques <- read_excel("./source/cooc_questionaire.xlsx")
 f_cros <- read_excel("./source/cooc_nlp_crossValid.xlsx")
 
@@ -54,12 +55,17 @@ rn10 <- as.matrix(f_pop4[,1])
 f_pop4 <- f_pop4[2:8]
 row.names(f_pop4) <- rn10
 
+rn11 <- as.matrix(f_assoc[,1])
+f_assoc <- f_assoc[2:8]
+row.names(f_assoc) <- rn11
+
 adjm_jacc <- as.matrix(f_jacc)
 adjm_lift <- as.matrix(f_lift)
 adjm_incu <- as.matrix(f_incu)
 adjm_cosi <- as.matrix(f_cosi)
 adjm_ques <- as.matrix(f_ques)
 adjm_cros <- as.matrix(f_cros)
+adjm_assoc <- as.matrix(f_assoc)
 
 adjm_pop1 <- as.matrix(f_pop1)
 adjm_pop2 <- as.matrix(f_pop2)
@@ -73,7 +79,7 @@ adjm_pop4 <- as.matrix(f_pop4)
 #g[4,,] <- adjm_cosi
 
 
-g <- list(adjm_jacc,adjm_lift,adjm_incu,adjm_cosi)
+g <- list(adjm_jacc,adjm_lift,adjm_incu,adjm_cosi,adjm_assoc)
 g2 <- list(adjm_ques,adjm_cros)
 g3 <- list(adjm_jacc,adjm_pop1,adjm_pop2,adjm_pop3,adjm_pop4)
 
@@ -81,25 +87,37 @@ g3 <- list(adjm_jacc,adjm_pop1,adjm_pop2,adjm_pop3,adjm_pop4)
 q.12<-qaptest(g,gcor,g1=1,g2=2, reps=1000)
 q.13<-qaptest(g,gcor,g1=1,g2=3, reps=1000)
 q.14<-qaptest(g,gcor,g1=1,g2=4, reps=1000)
+q.15<-qaptest(g,gcor,g1=1,g2=5, reps=1000)
 q.23<-qaptest(g,gcor,g1=2,g2=3, reps=1000)
 q.24<-qaptest(g,gcor,g1=2,g2=4, reps=1000)
+q.25<-qaptest(g,gcor,g1=2,g2=5, reps=1000)
 q.34<-qaptest(g,gcor,g1=3,g2=4, reps=1000)
+q.35<-qaptest(g,gcor,g1=3,g2=5, reps=1000)
+q.45<-qaptest(g,gcor,g1=4,g2=5, reps=1000)
 
 # 1.Substitute method QAP Test
 summary(q.12) # Jacc vs Lift
 summary(q.13) # Jacc vs Incursion
 summary(q.14) # Jacc vs Cosine
+summary(q.15) # Jacc vs Assoc
 summary(q.23) # Lift vs Incursion
 summary(q.24) # Lift vs Cosine
+summary(q.25) # Lift vs Assoc
 summary(q.34) # Incursion vs Cosine
+summary(q.35) # Incursion vs Assoc
+summary(q.45) # Cosine vs Assoc
 
 # 1.Substitute method QAP Test
 gcor(adjm_jacc,adjm_lift) # Jacc vs Lift
 gcor(adjm_jacc,adjm_incu) # Jacc vs Incursion
 gcor(adjm_jacc,adjm_cosi) # Jacc vs Cosine
+gcor(adjm_jacc,adjm_assoc)# Jacc vs Assoc
 gcor(adjm_lift,adjm_incu) # Lift vs Incursion
 gcor(adjm_lift,adjm_cosi) # Lift vs Cosine
+gcor(adjm_lift,adjm_assoc)# Lift vs Assoc
 gcor(adjm_incu,adjm_cosi) # Incursion vs Cosine
+gcor(adjm_incu,adjm_assoc) # Incursion vs Assoc
+gcor(adjm_cosi,adjm_assoc) # Cosine vs Assoc
 
 # 2.Cross Validation
 q.99<-qaptest(g2,gcor,g1=1,g2=2, reps=1000)
