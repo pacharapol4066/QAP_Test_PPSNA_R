@@ -9,7 +9,7 @@ library(quanteda)
 library(igraph)
 library(bibliometrix)
 library(CINNA)
-
+library(writexl)
 
 comment_nlp <- read_excel("./source/comment_cooc_freq.xlsx")
 
@@ -25,6 +25,11 @@ G1 <- graph_from_adjacency_matrix(adjmt, weighted=TRUE, mode="max")
 #plot(G1, layout=layout_with_kk)
 
 par(mar=c(1,1,1,1))
-net <- networkPlot(adjmt, normalize=NULL, n=vcount(G1), type="kamada")
+net <- networkPlot(adjmt, normalize=NULL, n=vcount(G1), cluster="louvain", type="kamada")
+
+#clusObj <- net[["cluster_obj"]]
+#ddf <- data.frame(unlist(clusObj))
+#write_xlsx(ddf,"./output/community.xlsx")
+
 net2VOSviewer(net, vos.path = "VOS")
 
